@@ -13,7 +13,8 @@
             <column name="password" type="varchar(60)"/>
             <column name="email" type="varchar(60)"/>
             <column name="created_at" type="date"/>
-            <column name="role" type="varchar(60)"/>
+            <column name="category" type="enum('racing','strategy','fighting')"/>
+            <column name="role" type="enum('admin','trader')"/>
         </createTable>
     </changeSet>
     <changeSet id="2" author="migus_nikita@mail.ru">
