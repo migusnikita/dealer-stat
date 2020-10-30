@@ -13,7 +13,6 @@
             <column name="password" type="varchar(60)"/>
             <column name="email" type="varchar(60)"/>
             <column name="created_at" type="date"/>
-            <column name="category" type="enum('racing','strategy','fighting')"/>
             <column name="role" type="enum('admin','trader')"/>
         </createTable>
     </changeSet>
@@ -24,10 +23,22 @@
             </column>
             <column name="message" type="text"/>
             <column name="user_id" type="BIGINT"/>
+            <column name="trader_info_id" type="BIGINT"/>
             <column name="created_at" type="date"/>
         </createTable>
     </changeSet>
     <changeSet id="3" author="migus_nikita@mail.ru">
+        <createTable tableName="trader_info">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(60)"/>
+            <column name="status" type="enum('waiting_for_approve','declined','approved')"/>
+            <column name="category" type="enum('racing','strategy','fighting')"/>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="migus_nikita@mail.ru">
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="comment"
                                  constraintName="fk_comment_to_user"
@@ -35,6 +46,16 @@
                                  onUpdate="NO ACTION"
                                  referencedColumnNames="id"
                                  referencedTableName="user"
+                                 validate="true"/>
+    </changeSet>
+    <changeSet id="5" author="migus_nikita@mail.ru">
+        <addForeignKeyConstraint baseColumnNames="trader_info_id"
+                                 baseTableName="comment"
+                                 constraintName="fk_comment_to_trader_info"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="trader_info"
                                  validate="true"/>
     </changeSet>
 
