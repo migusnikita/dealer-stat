@@ -4,6 +4,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +21,7 @@ import ru.mail.migus_nikita.dealerstat.dictionary.TraderInfoStatus;
 @Getter
 @Setter
 @Entity
-@Table(name = "user")
+@Table(name = "trader_info")
 public class TraderInfo {
 
     @Id
@@ -30,9 +32,11 @@ public class TraderInfo {
     @Column(name = "name")
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private TraderInfoStatus traderStatus;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "category")
     private TraderInfoCategory traderCategory;
 

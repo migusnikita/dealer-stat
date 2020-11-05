@@ -1,4 +1,6 @@
 package ru.mail.migus_nikita.dealerstat.service.impl;
 
-public class TraderInfoServiceImpl {
+import ru.mail.migus_nikita.dealerstat.service.TraderInfoService;
+
+public class TraderInfoServiceImpl implements TraderInfoService {
 }

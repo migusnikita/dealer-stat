@@ -2,10 +2,8 @@ package ru.mail.migus_nikita.dealerstat.repository.impl;
 
 import java.util.List;
 
-
-
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.mail.migus_nikita.dealerstat.model.User;
@@ -17,33 +15,33 @@ public class UserRepositoryImpl implements UserRepository {
 
     private SessionFactory sessionFactory;
 
-//    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
+    public void SessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<User> getAllUsers() {
-        return null;
+        return sessionFactory.getCurrentSession()
+                .createQuery("from User")
+                .list();
     }
 
     @Override
     public User getById(int id) {
-        return null;
+        return sessionFactory.getCurrentSession().get(User.class, id);
     }
 
     @Override
     public void addUser(User user) {
+        sessionFactory.getCurrentSession().persist(user);
 
     }
 
-    @Override
-    public void deleteUser(User user) {
-
-    }
 
     @Override
     public void updateUser(User user) {
+        sessionFactory.getCurrentSession().update(user);
 
     }
 

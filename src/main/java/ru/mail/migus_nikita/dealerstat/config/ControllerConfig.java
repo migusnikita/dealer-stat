@@ -3,7 +3,7 @@ package ru.mail.migus_nikita.dealerstat.config;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ControllerConfiq {
+public class ControllerConfig {
 
 //    @Autowired
 //    TraderInfoRepository traderInfoRepository;

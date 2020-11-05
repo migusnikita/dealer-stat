@@ -13,7 +13,7 @@
             <column name="password" type="varchar(60)"/>
             <column name="email" type="varchar(60)"/>
             <column name="created_at" type="date"/>
-            <column name="role" type="enum('admin','trader')"/>
+            <column name="role" type="enum('ADMIN','TRADER')"/>
         </createTable>
     </changeSet>
     <changeSet id="2" author="migus_nikita@mail.ru">
@@ -25,6 +25,7 @@
             <column name="user_id" type="BIGINT"/>
             <column name="trader_info_id" type="BIGINT"/>
             <column name="created_at" type="date"/>
+            <column name="approved" type="BIGINT"/>
         </createTable>
     </changeSet>
     <changeSet id="3" author="migus_nikita@mail.ru">
@@ -33,8 +34,8 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="name" type="varchar(60)"/>
-            <column name="status" type="enum('waiting_for_approve','declined','approved')"/>
-            <column name="category" type="enum('racing','strategy','fighting')"/>
+            <column name="status" type="enum('WAITING_FOR_APPROVE','DECLINED','APPROVED')"/>
+            <column name="category" type="enum('RACING','STRATEGY','FIGHTING')"/>
             <column name="user_id" type="BIGINT"/>
         </createTable>
     </changeSet>

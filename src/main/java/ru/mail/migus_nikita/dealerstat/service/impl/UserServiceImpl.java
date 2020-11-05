@@ -1,4 +1,6 @@
 package ru.mail.migus_nikita.dealerstat.service.impl;
 
-public class UserServiceImpl {
+import ru.mail.migus_nikita.dealerstat.service.UserService;
+
+public class UserServiceImpl implements UserService {
 }

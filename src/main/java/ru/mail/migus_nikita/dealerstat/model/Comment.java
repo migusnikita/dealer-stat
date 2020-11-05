@@ -21,7 +21,7 @@ public class Comment {
     private Date createdAt;
 
     @Column(name = "approved")
-    private boolean approved;
+    private int approved;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
