@@ -3,7 +3,6 @@ package ru.mail.migus_nikita.dealerstat.repository;
 import java.util.List;
 
 import ru.mail.migus_nikita.dealerstat.model.Comment;
-import ru.mail.migus_nikita.dealerstat.model.TraderInfo;
 
 public interface CommentRepository {
 
@@ -11,6 +10,6 @@ public interface CommentRepository {
 
     void updateComment(Comment comment);
 
-    List<Comment> getCommentForTrader(TraderInfo traderInfo);
+    List<Comment> getCommentForTrader(int traderInfo);
 
 }

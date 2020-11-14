@@ -16,9 +16,9 @@ public class TraderInfoController {
 
     public TraderInfoController(TraderInfoRepository traderInfoRepository) {this.traderInfoRepository = traderInfoRepository;}
 
-    @GetMapping(path = "/get-traders-waiting-for-approves")
-    public List<TraderInfo> getTraderInfo() {
-        return traderInfoRepository.getTraderByStatus();
+    @GetMapping(path = "/get-traders-waiting-for-approves/{status}")
+    public List<TraderInfo> getTraderInfo(@PathVariable TraderInfoStatus status) {
+        return traderInfoRepository.getTraderByStatus(status);
     }
 
     @GetMapping(path = "/change-status/{id}/{status}")
@@ -26,4 +26,9 @@ public class TraderInfoController {
         traderInfoRepository.changeStatusTrader(id, traderInfoStatus);
     }
 
+
+    @GetMapping(path = "/get-approved-traders")
+    public List<TraderInfo> getApprovedTraderInfo() {
+        return traderInfoRepository.getTraderByStatus(TraderInfoStatus.APPROVED);
+    }
 }

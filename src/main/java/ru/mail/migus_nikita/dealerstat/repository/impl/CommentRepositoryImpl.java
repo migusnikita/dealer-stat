@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.mail.migus_nikita.dealerstat.model.Comment;
-import ru.mail.migus_nikita.dealerstat.model.TraderInfo;
 import ru.mail.migus_nikita.dealerstat.repository.CommentRepository;
 
 @Repository
@@ -33,7 +32,7 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public List<Comment> getCommentForTrader(TraderInfo traderInfo) {
+    public List<Comment> getCommentForTrader(int traderInfo) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Comment> criteriaQuery = criteriaBuilder.createQuery(Comment.class);
         Root<Comment> root = criteriaQuery.from(Comment.class);

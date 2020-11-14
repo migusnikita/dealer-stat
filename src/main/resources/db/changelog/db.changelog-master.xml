@@ -25,7 +25,7 @@
             <column name="user_id" type="BIGINT"/>
             <column name="trader_info_id" type="BIGINT"/>
             <column name="created_at" type="date"/>
-            <column name="approved" type="BIGINT"/>
+            <column name="approved" type="enum('WAITING_FOR_APPROVE','DECLINED','APPROVED')"/>
         </createTable>
     </changeSet>
     <changeSet id="3" author="migus_nikita@mail.ru">

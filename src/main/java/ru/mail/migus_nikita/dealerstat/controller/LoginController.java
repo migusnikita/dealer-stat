@@ -21,8 +21,8 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(@RequestParam(value = "error", required = false) String error,
             @RequestParam(value = "logout", required = false) String logout,
-            @RequestParam(value = "activationCode", required = false) String activation,
-            @RequestParam(value = "resetPassword", required = false) String resetPassword) {
+            @RequestParam(value = "activationCode", required = false) boolean activation,
+            @RequestParam(value = "resetPassword", required = false) boolean resetPassword) {
         ModelAndView modelAndView = new ModelAndView();
         String message = null;
 
@@ -32,12 +32,12 @@ public class LoginController {
         if (logout != null) {
             message = "Logged out successfully";
         }
-        if ("true".equals(activation)) {
+        if (activation) {
             message = "Submit your email";
-        }
-        if ("false".equals(activation)) {
+        }else {
             message = "Email is submitted";
         }
+
         if ("true".equals(resetPassword)) {
             message = "Submit resetting password on email";
         }
