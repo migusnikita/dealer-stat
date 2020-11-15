@@ -1,54 +1,53 @@
 package ru.mail.migus_nikita.dealerstat.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RestController;
+import ru.mail.migus_nikita.dealerstat.dto.LoginDto;
+import ru.mail.migus_nikita.dealerstat.model.User;
+import ru.mail.migus_nikita.dealerstat.service.CryptoService;
 import ru.mail.migus_nikita.dealerstat.service.UserService;
 
-@Controller
+@RestController
 public class LoginController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final CryptoService cryptoService;
 
     @Autowired
-    public LoginController(UserService userService) {
+    public LoginController(UserService userService, CryptoService cryptoService) {
         this.userService = userService;
+        this.cryptoService = cryptoService;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login(@RequestParam(value = "error", required = false) String error,
-            @RequestParam(value = "logout", required = false) String logout,
-            @RequestParam(value = "activationCode", required = false) boolean activation,
-            @RequestParam(value = "resetPassword", required = false) boolean resetPassword) {
-        ModelAndView modelAndView = new ModelAndView();
-        String message = null;
+    public void login(LoginDto loginDto, HttpServletRequest request) throws NotFoundException {
 
-        if (error != null) {
-            message = "Username or Password is incorrect";
+        if (loginDto == null || loginDto.getPassword() == null || loginDto.getEmail() == null) {
+            throw new NotFoundException("password or email is empty");
         }
-        if (logout != null) {
-            message = "Logged out successfully";
-        }
-        if (activation) {
-            message = "Submit your email";
-        } else {
-            message = "Email is submitted";
+        User user = userService.findByUserName(loginDto.getEmail());
+        if (user == null) {
+            throw new NotFoundException("user with given email is not exists");
         }
 
-        if ("true".equals(resetPassword)) {
-            message = "Submit resetting password on email";
-        }
-        if ("false".equals(resetPassword)) {
-            message = "Password has been reset";
+        String password = cryptoService.decrypt(user.getPassword());
+        String email = user.getEmail();
+
+        if (!password.equals(loginDto.getPassword()) && !email.equals(loginDto.getEmail())) {
+            throw new NotFoundException("user with given email is not exists");
         }
 
-        modelAndView.setViewName("login");
-        modelAndView.addObject("message", message);
-        return modelAndView;
+        request.getSession().setAttribute("login", "successful");
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public void logout(HttpServletRequest request) {
+        request.getSession().invalidate();
     }
 
 }

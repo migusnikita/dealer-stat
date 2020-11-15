@@ -10,34 +10,32 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.mail.migus_nikita.dealerstat.dictionary.TraderInfoStatus;
 import ru.mail.migus_nikita.dealerstat.dto.NameAndCategoryTraderDto;
 import ru.mail.migus_nikita.dealerstat.model.TraderInfo;
-import ru.mail.migus_nikita.dealerstat.repository.TraderInfoRepository;
+import ru.mail.migus_nikita.dealerstat.service.TraderInfoService;
 
 @RestController
 public class TraderInfoController {
 
     @Autowired
-    private final TraderInfoRepository traderInfoRepository;
+    private TraderInfoService traderInfoService;
 
-    public TraderInfoController(TraderInfoRepository traderInfoRepository) {this.traderInfoRepository = traderInfoRepository;}
-
-    @PostMapping("/post/add-trader")
+    @PostMapping("/traders/add")
     public void addUser(NameAndCategoryTraderDto nameAndCategoryTraderDto) {
-        traderInfoRepository.addTrader(nameAndCategoryTraderDto);
+        traderInfoService.addTrader(nameAndCategoryTraderDto);
     }
 
-    @GetMapping(path = "/get-traders-waiting-for-approves/{status}")
-    public List<TraderInfo> getTraderInfo(@PathVariable TraderInfoStatus status) {
-        return traderInfoRepository.getTraderByStatus(status);
+    @GetMapping(path = "/traders/by-status/{status}")
+    public List<TraderInfo> getTraderInfoByStatus(@PathVariable TraderInfoStatus status) {
+        return traderInfoService.getTraderByStatus(status);
     }
 
-    @GetMapping(path = "/change-status/{id}/{status}")
+    @GetMapping(path = "/traders/change-status/{id}/{status}")
     public void changeStatusTrader(@PathVariable("id") int id, @PathVariable("status") TraderInfoStatus traderInfoStatus) {
-        traderInfoRepository.changeStatusTrader(id, traderInfoStatus);
+        traderInfoService.changeStatusTrader(id, traderInfoStatus);
     }
 
-    @GetMapping(path = "/get-approved-traders")
+    @GetMapping(path = "/traders/get-approved-traders")
     public List<TraderInfo> getApprovedTraderInfo() {
-        return traderInfoRepository.getTraderByStatus(TraderInfoStatus.APPROVED);
+        return traderInfoService.getTraderByStatus(TraderInfoStatus.APPROVED);
     }
 
 }

@@ -14,4 +14,6 @@ public interface UserRepository {
 
     void updateUser(User user);
 
+    User findByUserName(String userName);
+
 }

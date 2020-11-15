@@ -1,8 +1,9 @@
 package ru.mail.migus_nikita.dealerstat.repository.impl;
 
 import java.util.List;
+import javax.persistence.EntityManager;
 
-import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.mail.migus_nikita.dealerstat.model.User;
@@ -12,33 +13,42 @@ import ru.mail.migus_nikita.dealerstat.repository.UserRepository;
 @Transactional
 public class UserRepositoryImpl implements UserRepository {
 
-    private SessionFactory sessionFactory;
+    private final EntityManager entityManager;
 
-    public void SessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    @Autowired
+    public UserRepositoryImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<User> getAllUsers() {
-        return sessionFactory.getCurrentSession()
-                .createQuery("from User")
-                .list();
+        return entityManager
+                .createNamedQuery("User.findAll", User.class).getResultList();
     }
 
     @Override
     public User getUserById(int id) {
-        return sessionFactory.getCurrentSession().get(User.class, id);
+        return entityManager.find(User.class, id);
     }
 
     @Override
     public void addUser(User user) {
-        sessionFactory.getCurrentSession().persist(user);
+        entityManager.persist(user);
     }
 
     @Override
     public void updateUser(User user) {
-        sessionFactory.getCurrentSession().update(user);
+        entityManager.merge(user);
+    }
+
+    @Override
+    public User findByUserName(String userName) {
+        return (User) entityManager.createNativeQuery(
+                "select distinct u.id, u.name " +
+                        "from user u" +
+                        "where u.name = :name", User.class)
+                .setParameter("name", userName)
+                .getSingleResult();
     }
 
 }

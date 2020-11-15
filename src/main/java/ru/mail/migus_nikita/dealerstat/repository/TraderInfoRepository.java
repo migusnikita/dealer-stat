@@ -13,4 +13,7 @@ public interface TraderInfoRepository {
 
     void changeStatusTrader(int id, TraderInfoStatus traderInfoStatus);
 
+    TraderInfo findById(int id);
+
+
 }

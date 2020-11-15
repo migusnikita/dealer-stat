@@ -16,28 +16,28 @@ import ru.mail.migus_nikita.dealerstat.service.CommentService;
 @RestController
 public class CommentController {
 
-    @Autowired
-    private CommentService commentService;
-    @Autowired
-    private CommentRepository commentRepository;
+    private final CommentService commentService;
+    private final CommentRepository commentRepository;
 
-    @PostMapping("/post/add-comment")
+    @Autowired
+    public CommentController(CommentService commentService, CommentRepository commentRepository) {
+        this.commentService = commentService;
+        this.commentRepository = commentRepository;
+    }
+
+    @PostMapping("/comments/add")
     public void addComment(CommentDto commentDto) {
         commentService.addCommentToPost(commentDto);
     }
 
-    @PostMapping("/post/get-comments-for-trader/{id}")
+    @PostMapping("/comments/by-trader/{id}")
     public List<Comment> getCommentForTrader(@PathVariable int id) {
         return commentService.getCommentsByPostId(id);
     }
 
-    @GetMapping("/get-comments-by-status/{status}")
+    @GetMapping("/comments/by-status/{status}")
     public List<Comment> getCommentByStatus(@PathVariable CommentStatus status) {
         return commentRepository.getCommentsByStatus(status);
     }
 
 }
-
-//1.conttoller
-//      2.метод по добавлению комментов к посту
-//    3.метод по выборке всех комментов к посту

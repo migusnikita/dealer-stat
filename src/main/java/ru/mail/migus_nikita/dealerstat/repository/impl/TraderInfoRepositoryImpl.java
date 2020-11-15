@@ -18,8 +18,12 @@ import ru.mail.migus_nikita.dealerstat.repository.TraderInfoRepository;
 @Transactional
 public class TraderInfoRepositoryImpl implements TraderInfoRepository {
 
+    private final EntityManager entityManager;
+
     @Autowired
-    EntityManager entityManager;
+    public TraderInfoRepositoryImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public List<TraderInfo> getTraderByStatus(TraderInfoStatus traderInfoStatus) {
@@ -47,6 +51,11 @@ public class TraderInfoRepositoryImpl implements TraderInfoRepository {
         TypedQuery<TraderInfo> typedQuery = entityManager.createQuery(criteriaQuery);
         TraderInfo traderInfo = typedQuery.getSingleResult();
         traderInfo.setTraderStatus(traderInfoStatus);
+    }
+
+    @Override
+    public TraderInfo findById(int id) {
+        return entityManager.find(TraderInfo.class, id);
     }
 
 }

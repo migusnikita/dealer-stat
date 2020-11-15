@@ -18,8 +18,12 @@ import ru.mail.migus_nikita.dealerstat.repository.CommentRepository;
 @Transactional
 public class CommentRepositoryImpl implements CommentRepository {
 
+    private final EntityManager entityManager;
+
     @Autowired
-    EntityManager entityManager;
+    public CommentRepositoryImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public void addComment(Comment comment) {
@@ -27,11 +31,12 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public List<Comment> getCommentForTrader(int traderInfo) {
+    public List<Comment> getCommentForTrader(int traderInfoId) {
+
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Comment> criteriaQuery = criteriaBuilder.createQuery(Comment.class);
         Root<Comment> root = criteriaQuery.from(Comment.class);
-        criteriaQuery.where(criteriaBuilder.equal(root.get("id"), traderInfo)).select(root);
+        criteriaQuery.where(criteriaBuilder.equal(root.get("id"), traderInfoId)).select(root);
 
         TypedQuery<Comment> query = entityManager.createQuery(criteriaQuery);
         return query.getResultList();
