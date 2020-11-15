@@ -11,6 +11,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.mail.migus_nikita.dealerstat.dictionary.CommentStatus;
 import ru.mail.migus_nikita.dealerstat.model.Comment;
 import ru.mail.migus_nikita.dealerstat.repository.CommentRepository;
 
@@ -37,6 +38,17 @@ public class CommentRepositoryImpl implements CommentRepository {
         CriteriaQuery<Comment> criteriaQuery = criteriaBuilder.createQuery(Comment.class);
         Root<Comment> root = criteriaQuery.from(Comment.class);
         criteriaQuery.where(criteriaBuilder.equal(root.get("id"), traderInfo)).select(root);
+
+        TypedQuery<Comment> query = entityManager.createQuery(criteriaQuery);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Comment> getCommentsByStatus(CommentStatus commentStatus) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Comment> criteriaQuery = criteriaBuilder.createQuery(Comment.class);
+        Root<Comment> root = criteriaQuery.from(Comment.class);
+        criteriaQuery.where(criteriaBuilder.equal(root.get("commentStatus"), commentStatus)).select(root);
 
         TypedQuery<Comment> query = entityManager.createQuery(criteriaQuery);
         return query.getResultList();

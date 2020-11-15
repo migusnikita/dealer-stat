@@ -44,6 +44,6 @@ public class Comment {
     @JoinColumn(name = "trader_info_id")
     private TraderInfo traderInfo;
 
-    private Long traderInfoId;
+//    private Long traderInfoId;
 
 }
