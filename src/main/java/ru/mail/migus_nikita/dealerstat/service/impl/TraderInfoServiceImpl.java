@@ -19,20 +19,18 @@ public class TraderInfoServiceImpl implements TraderInfoService {
 
     @Override
     public List<TraderInfo> getTraderByStatus(TraderInfoStatus traderInfoStatus) {
-
         List<TraderInfo> traderByStatus = traderInfoRepository.getTraderByStatus(traderInfoStatus);
-
         return traderByStatus;
     }
 
     @Override
     public void addTrader(TraderInfo traderInfo) {
         traderInfoRepository.addTrader(traderInfo);
-
     }
 
     @Override
     public void changeStatusTrader(int id, TraderInfoStatus traderInfoStatus) {
+        traderInfoRepository.changeStatusTrader(id, traderInfoStatus);
 
     }
 
@@ -43,5 +41,3 @@ public class TraderInfoServiceImpl implements TraderInfoService {
 
 }
 
-// client(web-browser)-site,tvoi comp -----> server  ---->  contoller(обработка запрсов,
-//    возможна валидация) ---> service (бизнес логика ) -------->если идет сохранение в бд  ,то используется дао уровень (repo, dao objects)

@@ -43,7 +43,7 @@ public class TraderInfo {
     @Column(name = "user_id")
     private String userId;
 
-    @OneToMany(fetch = FetchType.EAGER,
+    @OneToMany(fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE,
             mappedBy = "traderInfo")
     private Set<Comment> comments;

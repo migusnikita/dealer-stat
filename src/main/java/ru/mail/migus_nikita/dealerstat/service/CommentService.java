@@ -7,7 +7,8 @@ import ru.mail.migus_nikita.dealerstat.model.Comment;
 
 public interface CommentService {
 
-  void addCommentToPost(CommentDto commentDto);
+    void addCommentToPost(CommentDto commentDto);
 
-  List<Comment> getCommentsByPostId(int postId);
+    List<Comment> getCommentsByPostId(int postId);
+
 }

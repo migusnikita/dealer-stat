@@ -8,7 +8,7 @@ public interface UserRepository {
 
     List<User> getAllUsers();
 
-    User getById(int id);
+    User getUserById(int id);
 
     void addUser(User user);
 

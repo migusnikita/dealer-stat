@@ -11,6 +11,7 @@ import ru.mail.migus_nikita.dealerstat.service.UserService;
 @Controller
 public class LoginController {
 
+    @Autowired
     private UserService userService;
 
     @Autowired
@@ -34,7 +35,7 @@ public class LoginController {
         }
         if (activation) {
             message = "Submit your email";
-        }else {
+        } else {
             message = "Email is submitted";
         }
 

@@ -32,18 +32,16 @@ public class Comment {
     @Column(name = "created_at")
     private LocalDate createdAt;
 
+    @Column(columnDefinition = "ENUM('WAITING_FOR_APPROVE','DECLINED','APPROVED')")
     @Enumerated(EnumType.STRING)
-    @Column(name = "approved")
-    private CommentStatus commentStatus;
+    private CommentStatus approved;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trader_info_id")
     private TraderInfo traderInfo;
-
-//    private Long traderInfoId;
 
 }

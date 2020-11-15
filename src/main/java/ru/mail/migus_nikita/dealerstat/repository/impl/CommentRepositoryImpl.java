@@ -1,7 +1,6 @@
 package ru.mail.migus_nikita.dealerstat.repository.impl;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -24,12 +23,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public void addComment(Comment comment) {
-
-    }
-
-    @Override
-    public void updateComment(Comment comment) {
-
+        entityManager.persist(comment);
     }
 
     @Override
@@ -48,7 +42,7 @@ public class CommentRepositoryImpl implements CommentRepository {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Comment> criteriaQuery = criteriaBuilder.createQuery(Comment.class);
         Root<Comment> root = criteriaQuery.from(Comment.class);
-        criteriaQuery.where(criteriaBuilder.equal(root.get("commentStatus"), commentStatus)).select(root);
+        criteriaQuery.where(criteriaBuilder.equal(root.get("approved"), commentStatus)).select(root);
 
         TypedQuery<Comment> query = entityManager.createQuery(criteriaQuery);
         return query.getResultList();

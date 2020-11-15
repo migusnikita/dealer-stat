@@ -27,7 +27,7 @@ public class CommentServiceImpl implements CommentService {
     public void addCommentToPost(CommentDto commentDto) {
 
         Comment comment = new Comment();
-        comment.setCommentStatus(CommentStatus.APPROVED);
+        comment.setApproved(CommentStatus.APPROVED);
         comment.setCreatedAt(LocalDate.now());
         comment.setMessage(commentDto.getText());
 

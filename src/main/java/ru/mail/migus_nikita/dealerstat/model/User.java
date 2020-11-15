@@ -52,7 +52,7 @@ public class User {
     @Column(name = "role")
     private UserRole userRole;
 
-    @OneToMany(fetch = FetchType.EAGER,
+    @OneToMany(fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE,
             mappedBy = "user")
     private Set<Comment> comments;

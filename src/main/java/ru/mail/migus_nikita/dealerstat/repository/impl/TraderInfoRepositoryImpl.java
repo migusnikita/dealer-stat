@@ -1,7 +1,8 @@
 package ru.mail.migus_nikita.dealerstat.repository.impl;
 
 import java.util.List;
-
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -12,9 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.mail.migus_nikita.dealerstat.dictionary.TraderInfoStatus;
 import ru.mail.migus_nikita.dealerstat.model.TraderInfo;
 import ru.mail.migus_nikita.dealerstat.repository.TraderInfoRepository;
-
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 
 @Repository
 @Transactional
@@ -49,9 +47,6 @@ public class TraderInfoRepositoryImpl implements TraderInfoRepository {
         TypedQuery<TraderInfo> typedQuery = entityManager.createQuery(criteriaQuery);
         TraderInfo traderInfo = typedQuery.getSingleResult();
         traderInfo.setTraderStatus(traderInfoStatus);
-
     }
-
-
 
 }

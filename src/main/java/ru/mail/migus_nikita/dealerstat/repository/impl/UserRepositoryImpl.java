@@ -2,7 +2,6 @@ package ru.mail.migus_nikita.dealerstat.repository.impl;
 
 import java.util.List;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,21 +27,18 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User getById(int id) {
+    public User getUserById(int id) {
         return sessionFactory.getCurrentSession().get(User.class, id);
     }
 
     @Override
     public void addUser(User user) {
         sessionFactory.getCurrentSession().persist(user);
-
     }
-
 
     @Override
     public void updateUser(User user) {
         sessionFactory.getCurrentSession().update(user);
-
     }
 
 }

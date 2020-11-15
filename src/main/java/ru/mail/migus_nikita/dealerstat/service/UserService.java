@@ -5,9 +5,10 @@ import ru.mail.migus_nikita.dealerstat.model.User;
 
 public interface UserService {
 
-  User getUserById(Long userId);
+    User getUserById(int id);
 
-  User findByUserName(String author);
+    User findByUserName(String author);
 
-  void addUser(UserDto userDto);
+    void addUser(UserDto userDto);
+
 }
